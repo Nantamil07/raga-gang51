@@ -1,327 +1,131 @@
-/* ==========================================
-   RAGA | Gang 51 | Rotaract Club CIT
-   Premium Website Interactions
-========================================== */
+/* =====================================================
+   RAGA — Gang 51  |  script.js
+   ===================================================== */
 
-// ================================
-// Reveal Animation on Scroll
-// ================================
+document.addEventListener('DOMContentLoaded', () => {
 
-const reveals = document.querySelectorAll(".reveal");
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("active");
+  /* ---------- Sticky navbar darken on scroll ---------- */
+  const navbar = document.querySelector('.navbar');
+  const onScrollNav = () => {
+    if (!navbar) return;
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
     }
-  });
-}, {
-  threshold: 0.15
-});
+  };
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
 
-reveals.forEach((section) => revealObserver.observe(section));
+  /* ---------- Mobile nav toggle ---------- */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
 
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
 
-// ================================
-// Smooth Navigation Scroll
-// ================================
-
-const navLinks = document.querySelectorAll(".nav-links a");
-
-navLinks.forEach(link => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const targetID = link.getAttribute("href");
-    const target = document.querySelector(targetID);
-
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+    // Close mobile menu when a plain link is tapped
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('open');
       });
-    }
-  });
-});
-
-
-// ================================
-// Navbar Background on Scroll
-// ================================
-
-const navbar = document.querySelector("nav");
-
-window.addEventListener("scroll", () => {
-
-  if (window.scrollY > 60) {
-    navbar.style.background = "rgba(1,12,35,0.88)";
-    navbar.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
-  } else {
-    navbar.style.background = "rgba(2,10,28,0.45)";
-    navbar.style.boxShadow = "none";
+    });
   }
 
-});
+  /* ---------- Events dropdown (hover on desktop, tap on mobile) ---------- */
+  const dropdownParent = document.querySelector('.has-dropdown');
 
+  if (dropdownParent) {
+    const trigger = dropdownParent.querySelector('a:not(.dropdown a)');
 
-// ================================
-// Hero Parallax Effect
-// ================================
+    trigger.addEventListener('click', (e) => {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      if (isMobile) {
+        e.preventDefault();
+        dropdownParent.classList.toggle('open');
+      }
+    });
 
-const hero = document.querySelector(".hero");
-
-window.addEventListener("scroll", () => {
-
-  const offset = window.pageYOffset;
-
-  hero.style.backgroundPositionY = offset * 0.35 + "px";
-
-});
-
-
-// ================================
-// Floating Music Icon Movement
-// ================================
-
-const floatingMusic = document.querySelectorAll(".music");
-
-floatingMusic.forEach((icon, index) => {
-
-  let angle = Math.random() * Math.PI * 2;
-
-  function animateIcon() {
-
-    angle += 0.01;
-
-    const x = Math.sin(angle) * 15;
-    const y = Math.cos(angle * 0.8) * 10;
-
-    icon.style.transform =
-      `translate(${x}px, ${y}px) rotate(${Math.sin(angle) * 15}deg)`;
-
-    requestAnimationFrame(animateIcon);
+    document.addEventListener('click', (e) => {
+      if (!dropdownParent.contains(e.target)) {
+        dropdownParent.classList.remove('open');
+      }
+    });
   }
 
-  animateIcon();
+  /* ---------- Active section highlighting (index page only) ---------- */
+  const sections = document.querySelectorAll('main section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"], .nav-links a[href^="index.html#"]');
 
-});
+  if (sections.length && navAnchors.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navAnchors.forEach(a => {
+            const href = a.getAttribute('href').split('#')[1];
+            a.classList.toggle('active', href === id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
 
-
-// ================================
-// Sparkle Twinkle Animation
-// ================================
-
-const sparkles = document.querySelectorAll(".sparkle");
-
-setInterval(() => {
-
-  sparkles.forEach(star => {
-
-    const randomScale = Math.random() * 0.8 + 0.8;
-    const randomOpacity = Math.random() * 0.5 + 0.2;
-
-    star.style.transform = `scale(${randomScale})`;
-    star.style.opacity = randomOpacity;
-
-  });
-
-}, 1200);
-
-
-// ================================
-// Board Member Hover Glow
-// ================================
-
-const members = document.querySelectorAll(".member-card");
-
-members.forEach(card => {
-
-  card.addEventListener("mousemove", (e) => {
-
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.background =
-      `radial-gradient(circle at ${x}px ${y}px,
-      rgba(255,213,79,0.18),
-      rgba(8,42,107,1) 60%)`;
-
-  });
-
-  card.addEventListener("mouseleave", () => {
-
-    card.style.background =
-      "linear-gradient(180deg,#082A6B,#031532)";
-
-  });
-
-});
-
-
-// ================================
-// Gallery Zoom Animation
-// ================================
-
-const galleryImages = document.querySelectorAll(".gallery-grid img");
-
-galleryImages.forEach((img) => {
-
-  img.addEventListener("mouseenter", () => {
-    img.style.transform = "scale(1.08)";
-  });
-
-  img.addEventListener("mouseleave", () => {
-    img.style.transform = "scale(1)";
-  });
-
-});
-
-
-// ================================
-// Hero Button Ripple Effect
-// ================================
-
-const heroButton = document.querySelector(".hero-btn");
-
-heroButton.addEventListener("click", function(e){
-
-  const ripple = document.createElement("span");
-  ripple.classList.add("ripple");
-
-  const rect = heroButton.getBoundingClientRect();
-
-  ripple.style.left = (e.clientX - rect.left) + "px";
-  ripple.style.top = (e.clientY - rect.top) + "px";
-
-  heroButton.appendChild(ripple);
-
-  setTimeout(() => {
-    ripple.remove();
-  },600);
-
-});
-
-
-// ================================
-// Typing Effect for RAGA Subtitle
-// ================================
-
-const subtitle = document.querySelector(".hero p");
-
-const originalText = subtitle.textContent;
-
-subtitle.textContent = "";
-
-let index = 0;
-
-function typing(){
-
-  if(index < originalText.length){
-
-    subtitle.textContent += originalText.charAt(index);
-    index++;
-
-    setTimeout(typing,45);
-
+    sections.forEach(section => observer.observe(section));
   }
 
-}
+  /* ---------- Reveal on scroll ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
 
-window.addEventListener("load",typing);
+  if (revealEls.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
 
-
-// ================================
-// Floating Background Glow
-// ================================
-
-const heroContent = document.querySelector(".hero-content");
-
-window.addEventListener("mousemove",(e)=>{
-
-  const x = e.clientX/window.innerWidth;
-  const y = e.clientY/window.innerHeight;
-
-  heroContent.style.transform =
-  `translate(${(x-0.5)*10}px, ${(y-0.5)*10}px)`;
-
-});
-
-
-// ================================
-// Active Navigation Highlight
-// ================================
-
-const sections = document.querySelectorAll("section");
-
-window.addEventListener("scroll",()=>{
-
-  let current = "";
-
-  sections.forEach(section=>{
-
-    const sectionTop = section.offsetTop - 120;
-
-    if(window.scrollY >= sectionTop){
-      current = section.getAttribute("id");
-    }
-
-  });
-
-  navLinks.forEach(link=>{
-
-    link.classList.remove("active-link");
-
-    if(link.getAttribute("href")==="#" + current){
-      link.classList.add("active-link");
-    }
-
-  });
-
-});
-
-
-// ================================
-// Simple Fade-In Loader
-// ================================
-
-window.addEventListener("load",()=>{
-
-  document.body.style.opacity = "0";
-
-  setTimeout(()=>{
-    document.body.style.transition = "opacity 1.2s ease";
-    document.body.style.opacity = "1";
-  },100);
-
-});
-
-
-// ================================
-// Scroll To Top Button
-// ================================
-
-const topButton = document.createElement("button");
-topButton.innerHTML = "↑";
-topButton.className = "top-button";
-document.body.appendChild(topButton);
-
-window.addEventListener("scroll",()=>{
-
-  if(window.scrollY > 500){
-    topButton.classList.add("show-top");
-  }else{
-    topButton.classList.remove("show-top");
+    revealEls.forEach(el => revealObserver.observe(el));
   }
 
-});
+  /* ---------- Hero parallax ---------- */
+  const heroContent = document.querySelector('.hero-content');
+  const heroPhoto = document.querySelector('.hero-photo-placeholder');
 
-topButton.addEventListener("click",()=>{
+  if (heroContent) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroContent.style.transform = `translateY(${y * 0.25}px)`;
+        if (heroPhoto) heroPhoto.style.transform = `translateY(${y * 0.12}px)`;
+      }
+    }, { passive: true });
+  }
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  /* ---------- Scroll-to-top button ---------- */
+  const scrollTopBtn = document.querySelector('.scroll-top-btn');
+
+  if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('show', window.scrollY > 500);
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- "View More" council button navigates ---------- */
+  const viewMoreBtn = document.querySelector('[data-view-more]');
+  if (viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', () => {
+      window.location.href = 'council.html';
+    });
+  }
 
 });
