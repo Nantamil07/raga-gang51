@@ -1,0 +1,1020 @@
+/* ==========================================
+   RAGA | Gang 51 | Rotaract Club CIT
+   Royal Blue Premium Theme
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --bg:#010817;
+    --bg2:#031B45;
+    --royal:#0B4DFF;
+    --royal-light:#4FA8FF;
+    --gold:#FFD54F;
+    --white:#ffffff;
+    --text:#DCE8FF;
+    --glass:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.15);
+}
+
+body{
+    background:var(--bg);
+    color:var(--white);
+    overflow-x:hidden;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(var(--royal),var(--gold));
+    border-radius:20px;
+}
+
+/* ==========================================
+   FLOATING MUSIC ELEMENTS
+========================================== */
+
+.floating-elements{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.music,.sparkle{
+    position:absolute;
+    opacity:.18;
+}
+
+.music{
+    color:var(--gold);
+    font-size:34px;
+    animation:musicFloat linear infinite;
+}
+
+.sparkle{
+    color:var(--royal-light);
+    animation:twinkle 5s infinite;
+}
+
+/* Positions */
+
+.m1{left:3%;top:85%;animation-duration:14s;}
+.m2{left:80%;top:80%;animation-duration:18s;}
+.m3{left:55%;top:95%;animation-duration:22s;}
+.g1{left:12%;top:50%;font-size:45px;animation-duration:25s;}
+.h1{left:88%;top:20%;font-size:42px;animation-duration:20s;}
+.mic1{left:70%;top:92%;font-size:40px;animation-duration:24s;}
+.v1{left:35%;top:8%;font-size:48px;animation-duration:28s;}
+.d1{left:60%;top:60%;font-size:38px;animation-duration:26s;}
+
+.s1{left:18%;top:30%;font-size:18px;}
+.s2{left:72%;top:40%;font-size:16px;animation-delay:2s;}
+.s3{left:45%;top:72%;font-size:20px;animation-delay:4s;}
+
+@keyframes musicFloat{
+
+    0%{
+        transform:translateY(0) rotate(0deg);
+    }
+
+    50%{
+        transform:translate(-25px,-350px) rotate(15deg) scale(1.2);
+    }
+
+    100%{
+        transform:translate(25px,-700px) rotate(35deg);
+    }
+
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:.15;
+        transform:scale(.8);
+    }
+
+    50%{
+        opacity:.7;
+        transform:scale(1.5);
+    }
+
+}
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+nav{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    z-index:1000;
+
+    padding:15px 5%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(2,10,28,.45);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.logo-container{
+    display:flex;
+    align-items:center;
+}
+
+.logo-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo-box img,
+.blank-logo{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+    border:2px solid var(--gold);
+    object-fit:cover;
+
+}
+
+.blank-logo{
+
+    border:2px dashed var(--white);
+    background:transparent;
+
+}
+
+.logo-info h4{
+    font-size:13px;
+    color:var(--gold);
+}
+
+.logo-info p{
+    font-size:11px;
+    color:#d4d4d4;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+}
+
+.nav-links a{
+
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    position:relative;
+    transition:.3s;
+
+}
+
+.nav-links a::after{
+
+    content:"";
+    position:absolute;
+
+    width:0;
+    left:0;
+    bottom:-5px;
+    height:2px;
+
+    background:var(--gold);
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+    color:var(--gold);
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+
+    position:relative;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(11,77,255,.45),
+    transparent 45%),
+
+    radial-gradient(circle at bottom left,
+    rgba(79,168,255,.25),
+    transparent 40%),
+
+    linear-gradient(135deg,#010817,#021336,#031B45,#062B7C);
+
+    overflow:hidden;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    background:radial-gradient(circle,
+    rgba(255,213,79,.12),
+    transparent 70%);
+
+    top:-250px;
+    right:-150px;
+
+    animation:pulse 8s infinite;
+
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:radial-gradient(circle,
+    rgba(79,168,255,.12),
+    transparent 70%);
+
+    left:-120px;
+    bottom:-120px;
+
+    animation:pulse2 9s infinite;
+
+}
+
+.hero-content{
+
+    text-align:center;
+    z-index:2;
+    padding:20px;
+
+}
+
+.tag{
+
+    letter-spacing:3px;
+    color:#BBD9FF;
+    font-size:14px;
+
+}
+
+.hero h1{
+
+    margin-top:20px;
+    font-size:90px;
+    font-weight:800;
+
+    background:linear-gradient(90deg,var(--gold),white,#6AB7FF);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+}
+
+.hero h2{
+
+    font-size:42px;
+    color:var(--gold);
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    color:#E0EBFF;
+    font-size:20px;
+    margin-bottom:40px;
+
+}
+
+.hero-btn{
+
+    display:inline-block;
+    padding:15px 42px;
+
+    border-radius:40px;
+
+    background:linear-gradient(90deg,var(--gold),#FFE98C);
+
+    color:#00143B;
+    font-weight:700;
+    text-decoration:none;
+
+    transition:.4s;
+
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 0 20px rgba(255,213,79,.7);
+
+}
+
+/* Wave */
+
+.hero-wave{
+
+    position:absolute;
+    bottom:0;
+    width:100%;
+    line-height:0;
+
+}
+
+.hero-wave svg{
+
+    display:block;
+    width:100%;
+    height:120px;
+
+}
+
+/* ==========================================
+   SECTION COMMON
+========================================== */
+
+section{
+
+    padding:110px 8%;
+    position:relative;
+    z-index:2;
+
+}
+
+.section-title{
+
+    text-align:center;
+    margin-bottom:60px;
+
+}
+
+.section-title h2{
+
+    font-size:42px;
+    color:var(--gold);
+    margin-bottom:15px;
+
+}
+
+.line{
+
+    width:90px;
+    height:4px;
+
+    background:linear-gradient(to right,var(--royal-light),var(--gold));
+
+    margin:auto;
+    border-radius:10px;
+
+}
+
+/* ==========================================
+   ABOUT
+========================================== */
+
+.about-grid{
+
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:45px;
+    align-items:center;
+
+}
+
+.about-text h3{
+
+    font-size:34px;
+    color:var(--royal-light);
+    margin-bottom:20px;
+
+}
+
+.about-text p{
+
+    color:var(--text);
+    line-height:2;
+    margin-bottom:20px;
+
+}
+
+.about-card{
+
+    padding:35px;
+
+    background:var(--glass);
+    border:1px solid var(--border);
+
+    backdrop-filter:blur(16px);
+
+    border-radius:25px;
+
+    text-align:center;
+
+}
+
+.about-card i{
+
+    font-size:55px;
+    color:var(--gold);
+    margin-bottom:20px;
+
+}
+
+.about-card h3{
+
+    color:white;
+    margin-bottom:10px;
+
+}
+
+/* ==========================================
+   PRAYER
+========================================== */
+
+.prayer{
+
+    background:
+    linear-gradient(rgba(1,12,35,.8),rgba(1,12,35,.9));
+
+    text-align:center;
+
+}
+
+.prayer-content{
+
+    max-width:850px;
+    margin:auto;
+
+}
+
+.prayer h2{
+
+    color:var(--gold);
+    font-size:40px;
+    margin-bottom:25px;
+
+}
+
+.prayer p{
+
+    font-size:20px;
+    line-height:2;
+    color:#E5EEFF;
+    font-style:italic;
+
+}
+
+/* ==========================================
+   THEME LOGO
+========================================== */
+
+.theme-container{
+
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:50px;
+    align-items:center;
+
+}
+
+.theme-placeholder{
+
+    width:240px;
+    height:240px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    border:3px dashed var(--gold);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:var(--gold);
+    font-weight:600;
+    letter-spacing:2px;
+
+}
+
+.theme-description{
+
+    background:var(--glass);
+
+    padding:35px;
+
+    border-radius:20px;
+
+    border:1px solid var(--border);
+
+}
+
+.theme-description h3{
+
+    color:var(--gold);
+    margin-bottom:15px;
+
+}
+
+.theme-description p{
+
+    line-height:2;
+    color:var(--text);
+
+}
+
+/* ==========================================
+   VISION & MISSION
+========================================== */
+
+.vision-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:30px;
+
+}
+
+.vision-card{
+
+    padding:35px;
+    border-radius:20px;
+
+    background:linear-gradient(180deg,#06245E,#03132F);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.4s;
+
+}
+
+.vision-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 0 25px rgba(79,168,255,.45);
+
+}
+
+.vision-card i{
+
+    font-size:48px;
+    color:var(--gold);
+    margin-bottom:18px;
+
+}
+
+.vision-card h3{
+
+    margin-bottom:12px;
+    color:white;
+
+}
+
+.vision-card p{
+
+    color:var(--text);
+    line-height:1.8;
+
+}
+
+/* ==========================================
+   PROJECTS
+========================================== */
+
+.project-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:28px;
+
+}
+
+.project-card{
+
+    padding:35px 25px;
+    border-radius:20px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.45s;
+
+}
+
+.project-card:hover{
+
+    transform:scale(1.05);
+
+    border-color:var(--gold);
+
+    box-shadow:0 0 25px rgba(255,213,79,.35);
+
+}
+
+.project-card i{
+
+    font-size:46px;
+    color:var(--gold);
+    margin-bottom:20px;
+
+}
+
+.project-card h3{
+
+    margin-bottom:12px;
+    color:white;
+
+}
+
+.project-card p{
+
+    color:var(--text);
+    line-height:1.8;
+
+}
+
+/* ==========================================
+   BOARD MEMBERS
+========================================== */
+
+.board-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:35px;
+
+}
+
+.member-card{
+
+    background:linear-gradient(180deg,#082A6B,#031532);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.5s;
+
+}
+
+.member-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 0 25px rgba(11,77,255,.55),
+    0 0 35px rgba(255,213,79,.25);
+
+}
+
+.member-card img{
+
+    width:150px;
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:4px solid var(--gold);
+
+    margin-bottom:20px;
+
+}
+
+.member-card h3{
+
+    color:white;
+    margin-bottom:8px;
+
+}
+
+.member-card span{
+
+    color:var(--gold);
+    font-weight:600;
+
+}
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.gallery-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+
+}
+
+.gallery-grid img{
+
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    transition:.45s;
+
+}
+
+.gallery-grid img:hover{
+
+    transform:scale(1.08) rotate(1deg);
+
+    box-shadow:0 0 20px rgba(79,168,255,.6);
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:80px 8%;
+
+    background:linear-gradient(#021336,#010817);
+
+}
+
+.footer h2{
+
+    color:var(--gold);
+    margin-bottom:10px;
+
+}
+
+.footer p{
+
+    color:#CEDCFF;
+    margin-bottom:20px;
+
+}
+
+.social-icons{
+
+    margin:25px 0;
+
+}
+
+.social-icons a{
+
+    width:55px;
+    height:55px;
+
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    margin:10px;
+
+    color:white;
+
+    background:rgba(255,255,255,.08);
+
+    transition:.35s;
+
+    text-decoration:none;
+
+}
+
+.social-icons a:hover{
+
+    background:var(--gold);
+    color:#00143B;
+
+    transform:translateY(-5px);
+
+}
+
+.footer-links{
+
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+
+    margin:30px 0;
+
+}
+
+.footer-links a{
+
+    color:#BBD9FF;
+    text-decoration:none;
+
+}
+
+.footer-links a:hover{
+    color:var(--gold);
+}
+
+.copyright{
+
+    margin-top:30px;
+    font-size:14px;
+    color:#8CA7D9;
+
+}
+
+/* ==========================================
+   REVEAL ANIMATION
+========================================== */
+
+.reveal{
+
+    opacity:0;
+    transform:translateY(60px);
+    transition:1s;
+
+}
+
+.reveal.active{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes pulse{
+
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+
+}
+
+@keyframes pulse2{
+
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(.9);}
+
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media(max-width:1100px){
+
+    nav{
+
+        flex-direction:column;
+        gap:15px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+        justify-content:center;
+
+    }
+
+}
+
+@media(max-width:900px){
+
+    .about-grid,
+    .theme-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero h1{
+        font-size:70px;
+    }
+
+    .hero h2{
+        font-size:32px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    nav{
+        padding:15px;
+    }
+
+    .logo-info{
+        display:none;
+    }
+
+    .nav-links{
+        gap:15px;
+        font-size:14px;
+    }
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .hero h2{
+        font-size:26px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    section{
+        padding:80px 6%;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+
+    .prayer p{
+        font-size:18px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .hero-btn{
+        padding:12px 28px;
+    }
+
+    .member-card img{
+        width:120px;
+        height:120px;
+    }
+
+    .gallery-grid img{
+        height:180px;
+    }
+
+}
